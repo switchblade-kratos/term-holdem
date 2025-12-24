@@ -3,7 +3,7 @@ A CLI for playing a terminal-based Texas Hold'em with your own computer
 
 ## Usage
 
-terholdem [options]
+term-holdem [options]
 
 Options:
   -h, --help        Show help
@@ -11,8 +11,8 @@ Options:
 
 # Installation
 
-git clone https://github.com/<your-username>/terholdem.git
-cd terholdem
+git clone https://github.com/<your-username>/term-holdem.git
+cd term-holdem
 make
 sudo make install
 
