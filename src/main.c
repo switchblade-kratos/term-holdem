@@ -1,14 +1,24 @@
 /* term-holdem main entry point */
 #include <stdio.h>
 #include <string.h>
+#include <stdbool.h>
+
+bool use_color = true;
+
+/* ANSI colors (portable) */
+#define RED    (use_color ? "\033[31m" : "")
+#define GREEN  (use_color ? "\033[32m" : "")
+#define YELLOW (use_color ? "\033[33m" : "")
+#define RESET  (use_color ? "\033[0m"  : "")
 
 #define VERSION "0.1.0"
 
 void print_help(void)
 {
+    printf("\n%sterm-holdem%s - Terminal Texas Hold'em poker\n",RED, RESET);
+
     printf(
-        "term-holdem - Terminal Texas Hold'em poker\n"
-		"a CLI for playing a terminal-based Texas Hold'em with your own computer\n\n"
+        "a CLI for playing a terminal-based Texas Hold'em with your own computer\n\n"
         "Usage:\n"
         "  term-holdem [options]\n\n"
         "Options:\n"
@@ -28,7 +38,16 @@ int main(int argc, char **argv)
     {
         for (int i = 1; i < argc; i++)
         {
-            if (!strcmp(argv[i], "-v") || !strcmp(argv[i], "--version"))
+            if (!strcmp(argv[i], "--no-color") || !strcmp(argv[i], "--no-colour"))
+			{
+				use_color = false;
+				continue;
+			}
+
+        }
+		for (int i = 1; i < argc; i++)
+		{
+			if (!strcmp(argv[i], "-v") || !strcmp(argv[i], "--version"))
             {
                 print_version();
                 return 0;
@@ -38,7 +57,7 @@ int main(int argc, char **argv)
                 print_help();
                 return 0;
             }
-            else
+			else
             {
                 fprintf(stderr,
                         "term-holdem: unknown option '%s'\n"
@@ -46,7 +65,7 @@ int main(int argc, char **argv)
                         argv[i]);
                 return 1;
             }
-        }
+		}
     }
 
     /* No arguments → start the game (placeholder) */
