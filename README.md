@@ -6,8 +6,9 @@ A CLI for playing a terminal-based Texas Hold'em with your own computer
 term-holdem [options]
 
 Options:
-  -h, --help        Show help
-  -v, --version     Show version information
+  -h, --help                    Show help
+  -v, --version                 Show version information
+  --no-color, --no-colour       Disables no-color
 
 # Installation
 
