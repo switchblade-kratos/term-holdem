@@ -12,7 +12,7 @@ Options:
 
 # Installation
 
-git clone https://github.com/<your-username>/term-holdem.git
+git clone https://github.com/switchblade-kratos/term-holdem.git
 cd term-holdem
 make
 sudo make install
