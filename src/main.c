@@ -5,6 +5,10 @@
 
 bool use_color = true;
 
+#ifdef _WIN32
+	use_color = false;
+#endif
+
 /* ANSI colors (portable) */
 #define RED    (use_color ? "\033[31m" : "")
 #define GREEN  (use_color ? "\033[32m" : "")
