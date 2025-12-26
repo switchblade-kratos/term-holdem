@@ -10,8 +10,8 @@ SRC_DIR := src
 BUILD_DIR := build
 
 # Source files
-SRCS := $(SRC_DIR)/main.c
-OBJS := $(BUILD_DIR)/main.o
+SRCS := $(SRC_DIR)/main.c $(SRC_DIR)/game.c $(SRC_DIR)/ui.c 
+OBJS := $(SRCS:$(SRC_DIR)/%.c=$(BUILD_DIR)/%.o)
 
 # Install locations
 PREFIX ?= /usr/local
