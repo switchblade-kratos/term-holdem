@@ -10,13 +10,6 @@ Options:
 -  `-v`, `--version`                 Show version information
 -  `--no-color`, `--no-colour`       Disables no-color
 
-# Installation
-
-git clone https://github.com/switchblade-kratos/term-holdem.git
-cd term-holdem
-make
-sudo make install
-
 ### Terminal support
 
 term-holdem uses ANSI escape codes.
@@ -31,6 +24,14 @@ Supported:
 Not supported:
 - legacy cmd.exe
 
+# Installation
+
+`git clone https://github.com/switchblade-kratos/term-holdem.git`
+`cd term-holdem`
+`make`
+`sudo make install`
+
+
 # Uninstall 
 
-sudo make uninstall
+`sudo make uninstall`
