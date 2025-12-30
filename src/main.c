@@ -2,11 +2,15 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdbool.h>
-#include "ui.h"
+
 #include "game.h"
+#include "render.h"
 
 
-#define VERSION "0.1.2"
+// heart = '\u2665', diamond = '\u2666', clubs = '\u2663', spades = '\u2660';
+
+
+#define VERSION "0.1.4"
 
 
 int main(int argc, char **argv)

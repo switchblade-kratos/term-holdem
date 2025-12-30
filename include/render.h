@@ -1,5 +1,5 @@
-#ifndef UI_H
-#define UI_H
+#ifndef RENDER_H
+#define RENDER_H
 
 #include<stdbool.h>
 
@@ -9,9 +9,17 @@ extern bool use_color;
 #define RED    (use_color ? "\033[31m" : "")
 #define GREEN  (use_color ? "\033[32m" : "")
 #define YELLOW (use_color ? "\033[33m" : "")
-#define RESET  (use_color ? "\033[0m"  : "")
+#define RESET  (use_color ? "\033[39m"  : "")
+
+
+
+#define HEART "❤"
+#define CLUBS "♣"
+#define DIAMOND "♦"
+#define SPADES "♠"
 
 void print_help(void);
 void print_version(const char *version);
+void draw_card(int row, int col, const char *rank, const char *suit, bool selected);
 
 #endif

@@ -17,6 +17,20 @@ cd term-holdem
 make
 sudo make install
 
+### Terminal support
+
+term-holdem uses ANSI escape codes.
+
+Supported:
+- Linux terminals
+- macOS Terminal/iTerm
+- Windows Terminal
+- PowerShell (modern)
+- WSL
+
+Not supported:
+- legacy cmd.exe
+
 # Uninstall 
 
 sudo make uninstall
