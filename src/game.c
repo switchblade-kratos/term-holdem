@@ -16,12 +16,13 @@ void game_start()
     while(1)
     {
         term_clear();
-
-        draw_card(2, 5, "K", HEART, selected == 1);
-        draw_card(2, 20, "A", SPADES, selected == 2);
-        draw_card(2, 35, "2", CLUBS, selected == 3);
-        draw_card(2, 50, "A", DIAMOND, selected == 4);
-        draw_card(2, 65, "9", SPADES, selected == 5);
+        draw_opp_cards_left();
+        draw_opp_cards_right();
+        draw_card(2, 25, "K", HEART, selected == 1);
+        draw_hidden_card(2, 40, selected == 2);
+        draw_card(2, 55, "2", CLUBS, selected == 3);
+        draw_card(2, 70, "A", DIAMOND, selected == 4);
+        draw_card(2, 85, "9", SPADES, selected == 5);
 
         fflush(stdout);
 
