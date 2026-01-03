@@ -31,17 +31,20 @@ typedef struct cards
 #define DIAMOND "♦"
 #define SPADES "♠"
 
-#define PLAYER_CARD_ROW 20
+#define PLAYER_CARD_ROW 23
 #define PLAYER_CARD_COL 46
-#define OPP1_CARD_ROW 7
+#define OPP1_CARD_ROW 9
 #define OPP1_CARD_COL 3
-#define OPP2_CARD_ROW 7
+#define OPP2_CARD_ROW 9
 #define OPP2_CARD_COL 107
+#define CARD_WIDTH 12
+
+#define UI_WIDTH 119
+#define UI_HEIGHT 30
 
 void print_help(void);
 void print_version(const char *version);
-void draw_card(int row, int col, Cards card, bool selected);
-void draw_hidden_card(int row, int col, bool selected);
+void draw_card(int row, int col, Cards card, bool selected, bool shown);
 void draw_opp_cards_left(int row, int col);
 void draw_opp_cards_right(int row, int col);
 void draw2cards(int row, int col, Cards cards[]);

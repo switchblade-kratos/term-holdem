@@ -8,8 +8,7 @@
 #include "render.h"
 #include "input.h"
 
-#define UI_WIDTH 119
-#define UI_HEIGHT 30
+
 
 void on_resize(int sig)
 {
@@ -134,7 +133,6 @@ void game_start()
     assignCards(opp2, cards, false);
 
 
-    int selected = 1;
     int row_buffer = (rows - 30)/2, col_buffer = (cols - 119)/2;
 
     if (row_buffer < 0) row_buffer = 0;
@@ -159,12 +157,9 @@ void game_start()
             term_clear();
         }
 
-        /* ---- RENDER DECISION ---- */
         if (rows >= UI_HEIGHT && cols >= UI_WIDTH)
         {
-            draw_screen(row_buffer, col_buffer,
-                        Community, opp1, opp2, player,
-                        true, true, 0);
+            draw_screen(row_buffer, col_buffer, Community, opp1, opp2, player, true, true, 3);
         }
         else
         {
