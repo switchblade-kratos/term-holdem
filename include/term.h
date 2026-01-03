@@ -5,5 +5,7 @@ void term_init(void);
 void term_restore(void);
 void term_clear(void);
 void term_move(int row, int col);
+void get_term_size(int *rows, int *cols);
+void handle_term_size(int row, int col);
 
 #endif

@@ -15,7 +15,7 @@ SRCS := \
 	$(SRC_DIR)/game.c \
 	$(SRC_DIR)/term.c \
 	$(SRC_DIR)/input.c \
-	$(SRC_DIR)/render.c
+	$(SRC_DIR)/render.c 
 
 # Object files
 OBJS := $(SRCS:$(SRC_DIR)/%.c=$(BUILD_DIR)/%.o)
@@ -33,7 +33,7 @@ $(NAME): $(OBJS)
 
 # Compile source files
 $(BUILD_DIR)/%.o: $(SRC_DIR)/%.c
-	mkdir -p $(BUILD_DIR)
+	@mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 # Clean build files

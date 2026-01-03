@@ -8,7 +8,7 @@
 #ifdef _WIN32
 bool use_color = false;
 #else
-    bool use_color = true;
+   bool use_color = true;
 #endif
 
 
@@ -32,34 +32,31 @@ void print_version(const char *version)
 }
 
 
-void draw_card(int row, int col, const char *rank, const char *suit, bool selected)
+void draw_card(int row, int col, Cards card, bool selected)
 {
     const char *hl_on  = selected ? "\033[48;5;238m" : "";
     const char *hl_off = selected ? "\033[49m" : "";
-    const char *color = (!strcmp(suit, HEART) || !strcmp(suit, DIAMOND)) ? RED : GREEN;
-
-
+    const char *color = (!strcmp(card.suit, HEART) || !strcmp(card.suit, DIAMOND)) ? RED : GREEN;
 
     term_move(row, col);
     printf("%s┌──────────┐%s", hl_on, hl_off);
     term_move(row+1, col);
-    printf("%s│ %-8s │%s", hl_on, rank, hl_off);
+    printf("%s│ %-8s │%s", hl_on, card.rank, hl_off);
     term_move(row+2, col);
     printf("%s│          │%s", hl_on, hl_off);
     term_move(row+3, col);
     printf("%s│          │%s", hl_on, hl_off);
     term_move(row+4, col);
-    printf("%s│    %s%s%s%s     │%s", hl_on, color, suit, RESET, hl_on, hl_off);
+    printf("%s│    %s%s%s%s     │%s", hl_on, color, card.suit, RESET, hl_on, hl_off);
     term_move(row+5, col);
     printf("%s│          │%s", hl_on, hl_off);
     term_move(row+6, col);
     printf("%s│          │%s", hl_on, hl_off);
     term_move(row+7, col);
-    printf("%s│ %8s │%s", hl_on, rank, hl_off);
+    printf("%s│ %8s │%s", hl_on, card.rank, hl_off);
     term_move(row+8, col);
     printf("%s└──────────┘%s", hl_on, hl_off);
 
-    fflush(stdout);
 }
 
 void draw_hidden_card(int row, int col, bool selected)
@@ -86,32 +83,45 @@ void draw_hidden_card(int row, int col, bool selected)
     term_move(row+8, col);
     printf("%s└──────────┘%s", hl_on, hl_off);
 
-    fflush(stdout);
 }
 
-void draw_opp_cards_left()
+void draw_opp_cards_left(int row, int col)
 {
-    term_move(7, 0);
+
+    term_move(row, col);
     printf("          ╱│\n");
+    term_move(row + 1, col);
     printf("         ╱ │\n");
+    term_move(row + 2, col);
     printf("        ╱  │\n");
+    term_move(row + 3, col);
     printf("   ╱│  ╱   │\n");
+    term_move(row + 4, col);
     printf("  ╱ │  │   │\n");
+    term_move(row + 5, col);
     printf(" ╱  │  │   │\n");
+    term_move(row + 6, col);
     printf("╱   │  │   │\n");
+    term_move(row + 7, col);
     printf("│   │  │   │\n");
+    term_move(row + 8, col);
     printf("│   │  │   │\n");
+    term_move(row + 9, col);
     printf("│   │  │  ╱ \n");
+    term_move(row + 10, col);
     printf("│   │  │ ╱ \n");
+    term_move(row + 11, col);
     printf("│   │  │╱ \n");
+    term_move(row + 12, col);
     printf("│  ╱ \n");
+    term_move(row + 13, col);
     printf("│ ╱ \n");
+    term_move(row + 14, col);
     printf("│╱ \n");
 }
 
-void draw_opp_cards_right()
+void draw_opp_cards_right(int row,int col)
 {
-    int row = 7, col = 112;
 
     term_move(row, col);
     printf("│╲        \n");
@@ -143,5 +153,24 @@ void draw_opp_cards_right()
     printf("         ╲ │\n");
     term_move(row+14, col);
     printf("          ╲│\n");
+}
 
+void draw2cards(int row, int col, Cards cards[])
+{
+    draw_card(row, col, cards[0], false);
+    draw_card(row, col + 15, cards[1], false);    
+}
+
+void draw_screen(int row, int col,Cards community[], Cards opp1[], Cards opp2[], Cards player[], bool opp1_hidden, bool opp2_hidden, int num_of_hidden_community)
+{
+    term_clear();
+    
+    draw_opp_cards_left(row + OPP1_CARD_ROW, col + OPP1_CARD_COL);
+    draw_opp_cards_right(row + OPP2_CARD_ROW, col + OPP2_CARD_COL);
+    draw_card(row + 2, col + 25, community[0], false);
+    draw_card(row + 2, col + 40,community[1], false);
+    draw_card(row + 2, col + 55, community[2], false);
+    draw_card(row + 2, col + 70, community[3], false);
+    draw_card(row + 2, col + 85, community[4], false);
+    draw2cards(row + PLAYER_CARD_ROW, col + PLAYER_CARD_COL, player);
 }

@@ -2,6 +2,8 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdbool.h>
+#include <stdlib.h>
+#include<time.h>
 
 #include "game.h"
 #include "render.h"
@@ -52,6 +54,9 @@ int main(int argc, char **argv)
     }
 
     /* No arguments → start the game (placeholder) */
+
+    srand(time(NULL));
+
     game_start();
     return 0;
 }
