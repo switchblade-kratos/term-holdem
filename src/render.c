@@ -1,9 +1,10 @@
+#include <stdio.h>
 #include <stdbool.h>
 #include <string.h>
 
 #include "render.h"
 #include "term.h"
-#include <stdio.h>
+#include "input.h"
 
 #ifdef _WIN32
 bool use_color = false;
@@ -166,9 +167,9 @@ void draw_table(int row, int col, int pot)
     printf("──────────────────────────────────────────────────────────────────────────────────────────");
     
     int row_start_2 = row + PLAYER_CARD_ROW + 2;
-    int col_start_2 = col + 1;
+    int col_start_2 = col + 2;
     term_move(row_start_2, col_start_2);
-    printf("────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────");
+    printf("──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────");
 
     char pot_val[10];
     snprintf(pot_val, 10, "%d", pot);
@@ -183,12 +184,57 @@ void draw_screen(int row, int col,Cards community[], Cards opp1[], Cards opp2[],
     term_clear();
     
     draw_table(row, col, 1000);
-    draw_opp_cards_left(row + OPP1_CARD_ROW, col + OPP1_CARD_COL);
-    draw_opp_cards_right(row + OPP2_CARD_ROW, col + OPP2_CARD_COL);
+    if(opp1_hidden)
+        draw_opp_cards_left(row + OPP1_CARD_ROW, col + OPP1_CARD_COL);
+    else 
+        draw2cards(row + OPP1_CARD_ROW + 3, col + OPP1_CARD_COL + 3, opp1);
+
+    if(opp2_hidden)
+        draw_opp_cards_right(row + OPP2_CARD_ROW, col + OPP2_CARD_COL);
+    else
+        draw2cards(row + OPP2_CARD_ROW + 3, col + OPP2_CARD_COL - 18, opp2);
+    
     draw_card(row + 2, col + 25, community[0], false, num_of_hidden_community < 5);
     draw_card(row + 2, col + 40, community[1], false, num_of_hidden_community < 4);
     draw_card(row + 2, col + 55, community[2], false, num_of_hidden_community < 3);
     draw_card(row + 2, col + 70, community[3], false, num_of_hidden_community < 2);
     draw_card(row + 2, col + 85, community[4], false, num_of_hidden_community < 1);
+    
     draw2cards(row + PLAYER_CARD_ROW, col + PLAYER_CARD_COL, player);
+}
+
+bool draw_quit_confirm(int row, int col)
+{
+    term_clear();
+
+    int row_start = (row - 7)/2;
+    int col_start = (col-36)/2;
+
+    term_move(row_start, col_start);
+    printf("┌──────────────────────────────────┐");
+    term_move(row_start + 1, col_start);
+    printf("│                                  │");
+    term_move(row_start + 2, col_start);
+    printf("│       Do you want to quit?       │");
+    term_move(row_start + 3, col_start);
+    printf("│                                  │");
+    term_move(row_start + 4, col_start);
+    printf("│     Yes(y)             No(n)     │");
+    term_move(row_start + 5, col_start);
+    printf("│                                  │");
+    term_move(row_start + 6, col_start);
+    printf("└──────────────────────────────────┘");
+
+    fflush(stdout);
+
+    while(true)
+    {
+        Key k = read_key();
+        if(k == KEY_NONE)
+            continue;
+        if (k == KEY_YES || k == KEY_QUIT) 
+            return true;
+        else 
+            return false;
+    }
 }

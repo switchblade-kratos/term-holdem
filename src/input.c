@@ -32,6 +32,12 @@ Key read_key(void)
 
     if (c == 'q')
         return KEY_QUIT;
+    
+    else if(c == 'y')
+        return KEY_YES;
+
+    else if(c == 'n')
+        return KEY_NO;
 
     if (c == '\033')
     {

@@ -49,5 +49,6 @@ void draw_opp_cards_left(int row, int col);
 void draw_opp_cards_right(int row, int col);
 void draw2cards(int row, int col, Cards cards[]);
 void draw_screen(int row, int col,Cards community[], Cards opp1[], Cards opp2[], Cards player[], bool opp1_hidden, bool opp2_hidden, int num_of_hidden_community);
+bool draw_quit_confirm(int row, int col);
 
 #endif

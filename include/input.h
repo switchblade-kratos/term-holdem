@@ -7,7 +7,9 @@ typedef enum {
     KEY_LEFT,
     KEY_RIGHT,
     KEY_UP,
-    KEY_DOWN
+    KEY_DOWN,
+    KEY_YES,
+    KEY_NO
 } Key;
 
 Key read_key(void);

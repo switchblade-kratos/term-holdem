@@ -109,6 +109,134 @@ void assignCards(Cards player_cards[], Cards cards[], bool is_com)
     }
 }
 
+// int analyseHand(Cards player_cards[])
+// {
+//     int rank;
+
+//     int ones = 0, twos = 0, threes = 0, fours = 0;
+//     int numbers[5];
+//     bool Num4OfKind = false, Num3OfKind = false, TwoPair = false, OnePair = false, straight = false, flush = false, royal = false, high_card = false;
+
+//     for (int i = 0; i < 5; i++)
+//         numbers[i] = player_cards[i].val;
+//     int counts[13 + 1] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+
+//     for (int i = 0; i < 5; i++)
+//         counts[numbers[i]]++;
+
+//     // Checking for number patterns
+//     for (int i = 0; i <= 13; i++)
+//     {
+//         if (counts[i] == 1)
+//             ones++;
+//         else if (counts[i] == 2)
+//             twos++;
+//         else if (counts[i] == 3)
+//             threes++;
+//         else if (counts[i] == 4)
+//             fours++;
+//     }
+
+//     // Checking the hand
+//     if (threes)
+//         Num3OfKind = true;
+//     if (fours)
+//         Num4OfKind = true;
+//     if (twos)
+//     {
+//         if (twos == 2)
+//             TwoPair = true;
+//         else
+//             OnePair = true;
+//     }
+//     if (ones == 5)
+//     {
+//         for (int i = 0; i <= 9; i++)
+//         {
+//             if ((counts[i] + counts[i + 1] + counts[i + 2] + counts[i + 3] + counts[i + 4]) == 5)
+//             {
+//                 straight = true;
+//                 break;
+//             }
+//         }
+//         if ((counts[1] + counts[10] + counts[11] + counts[12] + counts[13]) == 5)
+//             royal = true;
+//     }
+
+//     int symbols[4] = {0, 0, 0, 0};
+//     for (int i = 0; i < 5; i++)
+//     {
+//         if (player_cards[i].suit == SPADES) // Spade
+//             symbols[0]++;
+//         else if (player_cards[i].suit == HEART) // Heart
+//             symbols[1]++;
+//         else if (player_cards[i].suit == DIAMOND) // Diamond
+//             symbols[2]++;
+//         else // Clubs
+//             symbols[3]++;
+//     }
+//     for (int i = 0; i < 4; i++)
+//     {
+//         if (symbols[i] == 5)
+//         {
+//             flush = true;
+//             break;
+//         }
+//     }
+//     if ((counts[11] + counts[12] + counts[13]) > 0)
+//         high_card = true;
+
+//     // Ranking the hand
+//     if (royal && flush)
+//         rank = 10;
+//     else if (straight && flush)
+//         rank = 9;
+//     else if (Num4OfKind)
+//         rank = 8;
+//     else if (Num3OfKind && OnePair)
+//         rank = 7;
+//     else if (flush)
+//         rank = 6;
+//     else if (straight)
+//         rank = 5;
+//     else if (Num3OfKind)
+//         rank = 4;
+//     else if (TwoPair)
+//         rank = 3;
+//     else if (OnePair)
+//         rank = 2;
+//     else if (high_card)
+//         rank = 1;
+//     else
+//         rank = 0;
+//     return rank;
+// }
+
+// void displayRank(int player_rank, char *str)
+// {
+//     if (player_rank == 10)
+//         strcpy(str, "Current hand : Royal Flush");
+//     if (player_rank == 9)
+//         strcpy(str, "Current hand : Straight Flush");
+//     if (player_rank == 8)
+//         strcpy(str, "Current hand : Four of a kind");
+//     if (player_rank == 7)
+//         strcpy(str, "Current hand : Full house");
+//     if (player_rank == 6)
+//         strcpy(str, "Current hand : Flush");
+//     if (player_rank == 5)
+//         strcpy(str, "Current hand : Straight");
+//     if (player_rank == 4)
+//         strcpy(str, "Current hand : Three of a kind");
+//     if (player_rank == 3)
+//         strcpy(str, "Current hand : Two Pairs");
+//     if (player_rank == 2)
+//         strcpy(str, "Current hand : One Pair");
+//     if (player_rank == 1)
+//         strcpy(str, "Current hand : High Card");
+//     if (player_rank == 0)
+//         strcpy(str, "Current hand : Shit Cards");
+// }
 
 
 void game_start()
@@ -137,6 +265,7 @@ void game_start()
 
     if (row_buffer < 0) row_buffer = 0;
     if (col_buffer < 0) col_buffer = 0;
+
     while (1)
     {
         /* ALWAYS get current size */
@@ -159,7 +288,7 @@ void game_start()
 
         if (rows >= UI_HEIGHT && cols >= UI_WIDTH)
         {
-            draw_screen(row_buffer, col_buffer, Community, opp1, opp2, player, true, true, 3);
+            draw_screen(row_buffer, col_buffer, Community, opp1, opp2, player, true, true, 4);
         }
         else
         {
@@ -170,7 +299,8 @@ void game_start()
 
         Key k = read_key();
         if (k == KEY_QUIT)
-            break;
+            if(draw_quit_confirm(rows, cols))
+                break;
     }
 
 
